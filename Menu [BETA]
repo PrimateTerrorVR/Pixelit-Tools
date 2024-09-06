@@ -1,0 +1,93 @@
+// Create and append the menu
+let menu = document.createElement("div");
+menu.id = "menu";
+menu.style.width = "300px";
+menu.style.height = "200px";
+menu.style.backgroundColor = "black";
+menu.style.position = "absolute";
+menu.style.top = "50px";
+menu.style.left = "50px";
+menu.style.borderRadius = "10px";
+menu.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+menu.style.cursor = "move";
+document.body.appendChild(menu);
+
+// Create and append the header
+let menuHeader = document.createElement("div");
+menuHeader.id = "menuHeader";
+menuHeader.innerText = "Pixelit Tools";
+menuHeader.style.padding = "10px";
+menuHeader.style.fontSize = "18px";
+menuHeader.style.backgroundColor = "black";
+menuHeader.style.textAlign = "center";
+menuHeader.style.cursor = "move";
+menuHeader.style.userSelect = "none";
+menuHeader.style.background = "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
+menuHeader.style.backgroundSize = "400% 400%";
+menuHeader.style.webkitBackgroundClip = "text";
+menuHeader.style.color = "transparent";
+menuHeader.style.animation = "rainbow 5s ease-in-out infinite";
+menu.appendChild(menuHeader);
+
+// Create and append the button
+let toolButton = document.createElement("button");
+toolButton.innerText = "Tool 1";
+toolButton.style.width = "80%";
+toolButton.style.margin = "20px 10%";
+toolButton.style.padding = "10px";
+toolButton.style.backgroundColor = "#333";
+toolButton.style.border = "none";
+toolButton.style.color = "white";
+toolButton.style.fontSize = "16px";
+toolButton.style.cursor = "pointer";
+toolButton.style.borderRadius = "5px";
+toolButton.onmouseover = function() {
+    toolButton.style.backgroundColor = "#555";
+};
+toolButton.onmouseout = function() {
+    toolButton.style.backgroundColor = "#333";
+};
+menu.appendChild(toolButton);
+
+// Create the animation for the rainbow header
+let style = document.createElement("style");
+style.innerHTML = `
+    @keyframes rainbow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+`;
+document.head.appendChild(style);
+
+// Make the menu draggable
+let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+menuHeader.onmousedown = dragMouseDown;
+
+function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+}
+
+function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    menu.style.top = (menu.offsetTop - pos2) + "px";
+    menu.style.left = (menu.offsetLeft - pos1) + "px";
+}
+
+function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
+
+// Your custom code can go here. Add more functionality or buttons as needed
