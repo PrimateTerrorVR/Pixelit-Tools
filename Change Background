@@ -1,0 +1,50 @@
+// Function to add a feature to the menu
+function addFeature(name, code) {
+    const featureDiv = document.createElement('div');
+    featureDiv.style.marginBottom = '15px';
+
+    const button = document.createElement('button');
+    button.textContent = name;
+    button.style.width = '100%';
+    button.style.padding = '12px';
+    button.style.backgroundColor = '#800097';
+    button.style.color = '#FFF';
+    button.style.border = 'none';
+    button.style.borderRadius = '8px';
+    button.style.cursor = 'pointer';
+    button.style.fontSize = '16px';
+    button.style.transition = 'background-color 0.3s ease';
+    button.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+
+    button.addEventListener('click', () => {
+        try {
+            eval(code);
+        } catch (error) {
+            alert('An error occurred: ' + error.message);
+        }
+    });
+
+    button.addEventListener('mouseover', () => {
+        button.style.backgroundColor = '#6A0077';
+    });
+
+    button.addEventListener('mouseout', () => {
+        button.style.backgroundColor = '#800097';
+    });
+
+    featureDiv.appendChild(button);
+    menuContainer.appendChild(featureDiv);
+}
+
+// Add the Change Background Color feature
+addFeature('Change Background Color', `
+    const changeBackgroundColor = () => {
+        const color = prompt('Enter a color (name or hex code):', '#ffffff');
+        if (color) {
+            document.body.style.backgroundColor = color;
+            localStorage.setItem('backgroundColor', color); // Save the color to localStorage
+        }
+    };
+
+    changeBackgroundColor();
+`);
