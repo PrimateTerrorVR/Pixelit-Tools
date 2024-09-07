@@ -1,3 +1,4 @@
+
 const menu = document.createElement('div');
 menu.id = 'menu';
 menu.style.width = '300px';
@@ -60,10 +61,10 @@ ownerSpoofButton.style.borderRadius = '5px';
 menu.appendChild(ownerSpoofButton);
 
 ownerSpoofButton.onclick = function() {
-    const elements = document.querySelectorAll('span'); // Assuming roles are in span elements
-    elements.forEach(element => {
+    const roleElements = document.querySelectorAll('[role], .role, span.role'); // Generalize search for role elements
+    roleElements.forEach(element => {
         const text = element.innerText;
-        if (text === 'Admin' || text === 'Helper' || text === 'Moderator') {
+        if (['Admin', 'Helper', 'Moderator', 'Player'].includes(text)) {
             element.innerText = 'Owner';
             element.style.background = 'linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)';
             element.style.backgroundSize = '400% 400%';
@@ -99,6 +100,29 @@ tokenSpoofButton.onclick = function() {
     }
 };
 
+const freePackSpoofButton = document.createElement('button');
+freePackSpoofButton.innerText = 'Spoof Pack Prices to Free';
+freePackSpoofButton.style.width = '80%';
+freePackSpoofButton.style.margin = '10px 10%';
+freePackSpoofButton.style.padding = '10px';
+freePackSpoofButton.style.backgroundColor = '#666';
+freePackSpoofButton.style.border = 'none';
+freePackSpoofButton.style.color = 'white';
+freePackSpoofButton.style.fontSize = '16px';
+freePackSpoofButton.style.cursor = 'pointer';
+freePackSpoofButton.style.borderRadius = '5px';
+menu.appendChild(freePackSpoofButton);
+
+freePackSpoofButton.onclick = function() {
+    const costElements = document.querySelectorAll('.pack-cost, span, div');
+    costElements.forEach(element => {
+        if (element.innerText.includes('Cost:')) {
+            element.innerText = element.innerText.replace(/\d+/, 'Free');
+        }
+    });
+    alert('All packs are now spoofed to "Free"!');
+};
+
 const addFeature = document.createElement('button');
 addFeature.innerText = '+ Add Feature';
 addFeature.style.width = '80%';
@@ -129,7 +153,7 @@ addFeature.onclick = function() {
         newFeatureButton.style.cursor = 'pointer';
         newFeatureButton.style.borderRadius = '5px';
         newFeatureButton.onclick = function() {
-            eval(featureCode); 
+            eval(featureCode);  
         };
         menu.appendChild(newFeatureButton);
     }
