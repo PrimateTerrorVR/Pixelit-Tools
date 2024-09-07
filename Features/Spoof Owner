@@ -1,0 +1,35 @@
+function applyRainbowGradient(element) {
+    element.style.backgroundImage = 'linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)';
+    element.style.webkitBackgroundClip = 'text';
+    element.style.webkitTextFillColor = 'transparent';
+    element.style.fontWeight = 'bold'; // Make it bold for better visibility
+}
+
+function replaceTextAndApplyStyle() {
+    const targetWords = ['Admin', 'Helper', 'Moderator']; 
+    const newWord = 'Owner';
+
+    const elements = document.querySelectorAll('*:not(script):not(style):not(link)');
+
+    elements.forEach(element => {
+        element.childNodes.forEach(node => {
+            if (node.nodeType === Node.TEXT_NODE) {
+                let text = node.nodeValue.trim();
+                
+                targetWords.forEach(targetWord => {
+                    if (text.includes(targetWord)) {
+                        const newText = text.replace(targetWord, newWord); 
+
+                        const span = document.createElement('span');
+                        span.textContent = newText;
+                        applyRainbowGradient(span);
+                        
+                        element.replaceChild(span, node);
+                    }
+                });
+            }
+        });
+    });
+}
+
+replaceTextAndApplyStyle();
