@@ -1,0 +1,61 @@
+// Function to save menu buttons to local storage
+const saveMenuButtons = () => {
+    const menuContainer = document.querySelector('#menu');
+    const buttons = menuContainer.querySelectorAll('button');
+
+    const buttonsData = Array.from(buttons).map(button => ({
+        text: button.textContent,
+        style: button.getAttribute('style'),
+        onclick: button.getAttribute('onclick')
+    }));
+
+    localStorage.setItem('menuButtons', JSON.stringify(buttonsData));
+};
+
+// Function to load menu buttons from local storage
+const loadMenuButtons = () => {
+    const menuContainer = document.querySelector('#menu');
+    const savedButtons = localStorage.getItem('menuButtons');
+
+    if (savedButtons) {
+        const buttonsData = JSON.parse(savedButtons);
+
+        buttonsData.forEach(buttonData => {
+            const button = document.createElement('button');
+            button.textContent = buttonData.text;
+            button.setAttribute('style', buttonData.style);
+            button.setAttribute('onclick', buttonData.onclick);
+            button.addEventListener('click', new Function(buttonData.onclick));
+            menuContainer.appendChild(button);
+        });
+    }
+};
+
+// Add a button to save buttons configuration
+const addSaveButtonsButton = () => {
+    const menuContainer = document.querySelector('#menu');
+
+    const button = document.createElement('button');
+    button.textContent = 'Save Buttons';
+    button.style.width = '100%';
+    button.style.padding = '12px';
+    button.style.backgroundColor = '#800097';
+    button.style.color = '#FFF';
+    button.style.border = 'none';
+    button.style.borderRadius = '8px';
+    button.style.cursor = 'pointer';
+    button.style.fontSize = '16px';
+    button.style.transition = 'background-color 0.3s ease';
+    button.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+    button.addEventListener('click', saveMenuButtons);
+    button.addEventListener('mouseover', () => button.style.backgroundColor = '#6A0077');
+    button.addEventListener('mouseout', () => button.style.backgroundColor = '#800097');
+
+    menuContainer.appendChild(button);
+};
+
+// Call the function to add the save buttons button to the menu
+addSaveButtonsButton();
+
+// Load buttons from local storage when the page loads
+loadMenuButtons();
