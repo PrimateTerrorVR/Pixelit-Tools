@@ -30,12 +30,12 @@ menu.appendChild(menuHeader);
 
 // Create the initial button (BG Changer)
 const tool1 = document.createElement('button');
-tool1.innerText = '⬇mods⬇';
+tool1.innerText = 'PANIC';
 tool1.style.width = '80%';
 tool1.style.margin = '20px 10%';
 tool1.style.padding = '10px';
-tool1.style.backgroundColor = '#333';
-tool1.style.border = 'none';
+tool1.style.backgroundColor = 'Red';
+tool1.style.a = 'none';
 tool1.style.color = 'white';
 tool1.style.fontSize = '16px';
 tool1.style.cursor = 'pointer';
