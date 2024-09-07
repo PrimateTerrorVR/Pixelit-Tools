@@ -30,18 +30,18 @@ Pixelit Tools is a JavaScript-based menu designed to enhance and modify the Pixe
 
 ## Usage
 
-1. **Spoof All Pixels**
+1. **Spoof Owner**
 
-   - Click on "Spoof All Pixels" to randomly update pixel data. This will change pixel names, images, rarity, and ownership in the game.
+   - Grants you with the name owner.
 
 2. **Token Spoofing**
 
    - Use the token spoofing feature to simulate changes in token values.
 
-3. **Manage Tools**
+3. **Theme Changer**
 
-   - Use the menu interface to access and configure various tools.
+   - Changes the theme of Pixelit.
 
-4. **Move the Menu**
+4. **Add Featuer**
 
-   - Drag and reposition the menu on the screen as needed.
+   - Add your own feature through the menu.
