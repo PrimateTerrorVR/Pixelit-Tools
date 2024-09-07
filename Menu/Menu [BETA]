@@ -26,18 +26,54 @@ menuHeader.style.webkitTextFillColor = 'transparent';
 menuHeader.style.position = 'relative'; // Needed for dragging
 menu.appendChild(menuHeader);
 
-const tool1 = document.createElement('button');
-tool1.innerText = 'PANIC';
-tool1.style.width = '80%';
-tool1.style.margin = '20px 10%';
-tool1.style.padding = '10px';
-tool1.style.backgroundColor = 'Red';
-tool1.style.a = 'none';
-tool1.style.color = 'white';
-tool1.style.fontSize = '16px';
-tool1.style.cursor = 'pointer';
-tool1.style.borderRadius = '5px';
-menu.appendChild(tool1);
+const changeBgButton = document.createElement('button');
+changeBgButton.innerText = 'Change Background Color';
+changeBgButton.style.width = '80%';
+changeBgButton.style.margin = '20px 10%';
+changeBgButton.style.padding = '10px';
+changeBgButton.style.backgroundColor = '#666';
+changeBgButton.style.border = 'none';
+changeBgButton.style.color = 'white';
+changeBgButton.style.fontSize = '16px';
+changeBgButton.style.cursor = 'pointer';
+changeBgButton.style.borderRadius = '5px';
+menu.appendChild(changeBgButton);
+
+changeBgButton.onclick = function() {
+    const color = prompt('Enter a color (name or hex code):', '#ffffff');
+    if (color) {
+        document.body.style.backgroundColor = color;
+    }
+};
+
+const ownerSpoofButton = document.createElement('button');
+ownerSpoofButton.innerText = 'Spoof Roles to Owner';
+ownerSpoofButton.style.width = '80%';
+ownerSpoofButton.style.margin = '10px 10%';
+ownerSpoofButton.style.padding = '10px';
+ownerSpoofButton.style.backgroundColor = '#666';
+ownerSpoofButton.style.border = 'none';
+ownerSpoofButton.style.color = 'white';
+ownerSpoofButton.style.fontSize = '16px';
+ownerSpoofButton.style.cursor = 'pointer';
+ownerSpoofButton.style.borderRadius = '5px';
+menu.appendChild(ownerSpoofButton);
+
+ownerSpoofButton.onclick = function() {
+    const elements = document.querySelectorAll('span'); // Assuming roles are in span elements
+    elements.forEach(element => {
+        const text = element.innerText;
+        if (text === 'Admin' || text === 'Helper' || text === 'Moderator') {
+            element.innerText = 'Owner';
+            element.style.background = 'linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)';
+            element.style.backgroundSize = '400% 400%';
+            element.style.color = 'transparent';
+            element.style.animation = 'rainbowText 5s ease infinite';
+            element.style.webkitBackgroundClip = 'text';
+            element.style.webkitTextFillColor = 'transparent';
+        }
+    });
+};
 
 const tokenSpoofButton = document.createElement('button');
 tokenSpoofButton.innerText = 'Spoof Tokens';
@@ -51,6 +87,17 @@ tokenSpoofButton.style.fontSize = '16px';
 tokenSpoofButton.style.cursor = 'pointer';
 tokenSpoofButton.style.borderRadius = '5px';
 menu.appendChild(tokenSpoofButton);
+
+tokenSpoofButton.onclick = function() {
+    const tokensElement = document.getElementById('tokens');
+    if (tokensElement) {
+        const tokenAmount = prompt('Enter the amount of tokens you want:');
+        tokensElement.textContent = tokenAmount || '0';
+        alert('Tokens spoofed successfully!');
+    } else {
+        alert('Token element not found!');
+    }
+};
 
 const addFeature = document.createElement('button');
 addFeature.innerText = '+ Add Feature';
@@ -82,7 +129,7 @@ addFeature.onclick = function() {
         newFeatureButton.style.cursor = 'pointer';
         newFeatureButton.style.borderRadius = '5px';
         newFeatureButton.onclick = function() {
-            eval(featureCode);  // Execute the pasted feature code when the button is clicked
+            eval(featureCode); 
         };
         menu.appendChild(newFeatureButton);
     }
@@ -95,51 +142,14 @@ style.innerHTML = `
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
+
+    @keyframes rainbowText {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
 `;
 document.head.appendChild(style);
-
-function spoofAllPixels() {
-    const blookItems = document.querySelectorAll(".item");
-    blookItems.forEach(item => {
-        const name = item.getAttribute("data-name") || "Unknown Blook";
-        const imageSrc = item.querySelector("img").getAttribute("src");
-        const rarity = item.getAttribute("data-rarity") || "Common";
-        const owned = item.getAttribute("data-owned") || "0";
-        const badge = item.querySelector(".badge");
-        
-        document.getElementById("blook-name").textContent = name;
-        document.getElementById("blook-image").src = imageSrc;
-        document.getElementById("blook-image").style.display = "block";
-        document.getElementById("blook-rarity").textContent = `Rarity: ${rarity}`;
-        document.getElementById("blook-owned").textContent = `${owned} Owned`;
-        document.getElementById("set-pfp").style.display = "block";
-        document.getElementById("sell-blook").style.display = "block";
-        
-        if (badge) {
-            if (rarity === "uncommon") badge.style.backgroundColor = "green";
-            if (rarity === "rare") badge.style.backgroundColor = "blue";
-            if (rarity === "epic") badge.style.backgroundColor = "red";
-            if (rarity === "legendary") badge.style.backgroundColor = "gold";
-            if (rarity === "chroma") badge.style.backgroundColor = "cyan";
-            if (rarity === "mystical") badge.style.backgroundColor = "purple";
-        }
-    });
-}
-
-tool1.onclick = function() {
-    spoofAllPixels();
-};
-
-tokenSpoofButton.onclick = function() {
-    const tokensElement = document.getElementById('tokens');
-    if (tokensElement) {
-        const tokenAmount = prompt('Enter the amount of tokens you want:');
-        tokensElement.textContent = tokenAmount || '0';
-        alert('Tokens spoofed successfully!');
-    } else {
-        alert('Token element not found!');
-    }
-};
 
 function makeDraggable(element) {
     let offsetX, offsetY;
