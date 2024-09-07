@@ -10,12 +10,12 @@ Pixelit Tools is a JavaScript-based menu designed to enhance and modify the Pixe
 
 ## Features
 
-- **Tool 1: Spoof All Pixels** - Randomly updates pixel data, including names, images, rarity, and ownership.
+- **Background Changing** - Changes the theme of the webpage to match your needs.
 - **Token Spoofing** - Allows users to spoof token values.
-- **Dynamic Tool Management** - Easily add, organize, and manage tools within the menu.
+- **Spoof Owner** - Make it show you are owner.
 - **Movable Menu** - Reposition the menu anywhere on the screen.
 - **Dark Theme** - Provides a sleek, dark-themed UI for comfortable viewing.
-- **Real-time Updates** - Immediate feedback based on user interactions with the tools.
+- **** - Immediate feedback based on user interactions with the tools.
 
 ## Installation
 
