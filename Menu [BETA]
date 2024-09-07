@@ -1,56 +1,101 @@
-// Create and append the menu
-let menu = document.createElement("div");
-menu.id = "menu";
-menu.style.width = "300px";
-menu.style.height = "200px";
-menu.style.backgroundColor = "black";
-menu.style.position = "absolute";
-menu.style.top = "50px";
-menu.style.left = "50px";
-menu.style.borderRadius = "10px";
-menu.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
-menu.style.cursor = "move";
+// Create the menu structure
+const menu = document.createElement('div');
+menu.id = 'menu';
+menu.style.width = '300px';
+menu.style.backgroundColor = 'black';
+menu.style.position = 'absolute';
+menu.style.top = '50px';
+menu.style.left = '50px';
+menu.style.borderRadius = '10px';
+menu.style.boxShadow = 'rgba(0, 0, 0, 0.5) 0px 0px 10px';
+menu.style.paddingBottom = '20px';
 document.body.appendChild(menu);
 
-// Create and append the header
-let menuHeader = document.createElement("div");
-menuHeader.id = "menuHeader";
-menuHeader.innerText = "Pixelit Tools";
-menuHeader.style.padding = "10px";
-menuHeader.style.fontSize = "18px";
-menuHeader.style.backgroundColor = "black";
-menuHeader.style.textAlign = "center";
-menuHeader.style.cursor = "move";
-menuHeader.style.userSelect = "none";
-menuHeader.style.background = "linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)";
-menuHeader.style.backgroundSize = "400% 400%";
-menuHeader.style.webkitBackgroundClip = "text";
-menuHeader.style.color = "transparent";
-menuHeader.style.animation = "rainbow 5s ease-in-out infinite";
+// Create the rainbow gradient header
+const menuHeader = document.createElement('div');
+menuHeader.innerText = 'Pixelit Tools';
+menuHeader.style.padding = '10px';
+menuHeader.style.fontSize = '18px';
+menuHeader.style.textAlign = 'center';
+menuHeader.style.cursor = 'move';
+menuHeader.style.userSelect = 'none';
+menuHeader.style.background = 'linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet)';
+menuHeader.style.backgroundSize = '400% 400%';
+menuHeader.style.color = 'transparent';
+menuHeader.style.animation = 'rainbow 5s ease infinite';
+menuHeader.style.webkitBackgroundClip = 'text';
+menuHeader.style.webkitTextFillColor = 'transparent';
+menuHeader.style.position = 'relative'; // Needed for dragging
 menu.appendChild(menuHeader);
 
-// Create and append the button
-let toolButton = document.createElement("button");
-toolButton.innerText = "Tool 1";
-toolButton.style.width = "80%";
-toolButton.style.margin = "20px 10%";
-toolButton.style.padding = "10px";
-toolButton.style.backgroundColor = "#333";
-toolButton.style.border = "none";
-toolButton.style.color = "white";
-toolButton.style.fontSize = "16px";
-toolButton.style.cursor = "pointer";
-toolButton.style.borderRadius = "5px";
-toolButton.onmouseover = function() {
-    toolButton.style.backgroundColor = "#555";
-};
-toolButton.onmouseout = function() {
-    toolButton.style.backgroundColor = "#333";
-};
-menu.appendChild(toolButton);
+// Create the initial button (Tool 1)
+const tool1 = document.createElement('button');
+tool1.innerText = 'Tool 1';
+tool1.style.width = '80%';
+tool1.style.margin = '20px 10%';
+tool1.style.padding = '10px';
+tool1.style.backgroundColor = '#333';
+tool1.style.border = 'none';
+tool1.style.color = 'white';
+tool1.style.fontSize = '16px';
+tool1.style.cursor = 'pointer';
+tool1.style.borderRadius = '5px';
+menu.appendChild(tool1);
 
-// Create the animation for the rainbow header
-let style = document.createElement("style");
+// Token Spoofing Button
+const tokenSpoofButton = document.createElement('button');
+tokenSpoofButton.innerText = 'Spoof Tokens';
+tokenSpoofButton.style.width = '80%';
+tokenSpoofButton.style.margin = '10px 10%';
+tokenSpoofButton.style.padding = '10px';
+tokenSpoofButton.style.backgroundColor = '#666';
+tokenSpoofButton.style.border = 'none';
+tokenSpoofButton.style.color = 'white';
+tokenSpoofButton.style.fontSize = '16px';
+tokenSpoofButton.style.cursor = 'pointer';
+tokenSpoofButton.style.borderRadius = '5px';
+menu.appendChild(tokenSpoofButton);
+
+// Function to add new features dynamically
+const addFeature = document.createElement('button');
+addFeature.innerText = '+ Add Feature';
+addFeature.style.width = '80%';
+addFeature.style.margin = '10px 10%';
+addFeature.style.padding = '10px';
+addFeature.style.backgroundColor = '#444';
+addFeature.style.border = 'none';
+addFeature.style.color = 'white';
+addFeature.style.fontSize = '16px';
+addFeature.style.cursor = 'pointer';
+addFeature.style.borderRadius = '5px';
+menu.appendChild(addFeature);
+
+// Function to add new features dynamically
+addFeature.onclick = function() {
+    const featureName = prompt('Enter the feature name:');
+    const featureCode = prompt('Paste the feature code:');
+    
+    if (featureName && featureCode) {
+        const newFeatureButton = document.createElement('button');
+        newFeatureButton.innerText = featureName;
+        newFeatureButton.style.width = '80%';
+        newFeatureButton.style.margin = '10px 10%';
+        newFeatureButton.style.padding = '10px';
+        newFeatureButton.style.backgroundColor = '#555';
+        newFeatureButton.style.border = 'none';
+        newFeatureButton.style.color = 'white';
+        newFeatureButton.style.fontSize = '16px';
+        newFeatureButton.style.cursor = 'pointer';
+        newFeatureButton.style.borderRadius = '5px';
+        newFeatureButton.onclick = function() {
+            eval(featureCode);  // Execute the pasted feature code when the button is clicked
+        };
+        menu.appendChild(newFeatureButton);
+    }
+};
+
+// Rainbow animation for the header
+const style = document.createElement('style');
 style.innerHTML = `
     @keyframes rainbow {
         0% { background-position: 0% 50%; }
@@ -60,34 +105,71 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
+// Function to spoof all pixels
+function spoofAllPixels() {
+    const blookItems = document.querySelectorAll(".item");
+    blookItems.forEach(item => {
+        const name = item.getAttribute("data-name") || "Unknown Blook";
+        const imageSrc = item.querySelector("img").getAttribute("src");
+        const rarity = item.getAttribute("data-rarity") || "Common";
+        const owned = item.getAttribute("data-owned") || "0";
+        const badge = item.querySelector(".badge");
+        
+        // Update the details section
+        document.getElementById("blook-name").textContent = name;
+        document.getElementById("blook-image").src = imageSrc;
+        document.getElementById("blook-image").style.display = "block";
+        document.getElementById("blook-rarity").textContent = `Rarity: ${rarity}`;
+        document.getElementById("blook-owned").textContent = `${owned} Owned`;
+        document.getElementById("set-pfp").style.display = "block";
+        document.getElementById("sell-blook").style.display = "block";
+        
+        // Update badge color based on rarity
+        if (badge) {
+            if (rarity === "uncommon") badge.style.backgroundColor = "green";
+            if (rarity === "rare") badge.style.backgroundColor = "blue";
+            if (rarity === "epic") badge.style.backgroundColor = "red";
+            if (rarity === "legendary") badge.style.backgroundColor = "gold";
+            if (rarity === "chroma") badge.style.backgroundColor = "cyan";
+            if (rarity === "mystical") badge.style.backgroundColor = "purple";
+        }
+    });
+}
+
+// Handle button clicks
+tool1.onclick = function() {
+    spoofAllPixels();
+};
+
+tokenSpoofButton.onclick = function() {
+    const tokensElement = document.getElementById('tokens');
+    if (tokensElement) {
+        const tokenAmount = prompt('Enter the amount of tokens you want:');
+        tokensElement.textContent = tokenAmount || '0';
+        alert('Tokens spoofed successfully!');
+    } else {
+        alert('Token element not found!');
+    }
+};
+
 // Make the menu draggable
-let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+function makeDraggable(element) {
+    let offsetX, offsetY;
 
-menuHeader.onmousedown = dragMouseDown;
+    element.onmousedown = function(e) {
+        offsetX = e.clientX - parseInt(window.getComputedStyle(element).left);
+        offsetY = e.clientY - parseInt(window.getComputedStyle(element).top);
 
-function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
+        document.onmousemove = function(e) {
+            element.style.left = e.clientX - offsetX + 'px';
+            element.style.top = e.clientY - offsetY + 'px';
+        };
+
+        document.onmouseup = function() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        };
+    };
 }
 
-function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    menu.style.top = (menu.offsetTop - pos2) + "px";
-    menu.style.left = (menu.offsetLeft - pos1) + "px";
-}
-
-function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-}
-
-// Your custom code can go here. Add more functionality or buttons as needed
+makeDraggable(menu);
