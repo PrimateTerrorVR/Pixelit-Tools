@@ -28,9 +28,9 @@ menuHeader.style.webkitTextFillColor = 'transparent';
 menuHeader.style.position = 'relative'; // Needed for dragging
 menu.appendChild(menuHeader);
 
-// Create the initial button (Tool 1)
+// Create the initial button (BG Changer)
 const tool1 = document.createElement('button');
-tool1.innerText = 'Tool 1';
+tool1.innerText = 'Background Changer';
 tool1.style.width = '80%';
 tool1.style.margin = '20px 10%';
 tool1.style.padding = '10px';
