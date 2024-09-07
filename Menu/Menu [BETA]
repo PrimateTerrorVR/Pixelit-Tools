@@ -1,4 +1,3 @@
-// Create the menu structure
 const menu = document.createElement('div');
 menu.id = 'menu';
 menu.style.width = '300px';
@@ -11,7 +10,6 @@ menu.style.boxShadow = 'rgba(0, 0, 0, 0.5) 0px 0px 10px';
 menu.style.paddingBottom = '20px';
 document.body.appendChild(menu);
 
-// Create the rainbow gradient header
 const menuHeader = document.createElement('div');
 menuHeader.innerText = 'Pixelit Tools';
 menuHeader.style.padding = '10px';
@@ -28,7 +26,6 @@ menuHeader.style.webkitTextFillColor = 'transparent';
 menuHeader.style.position = 'relative'; // Needed for dragging
 menu.appendChild(menuHeader);
 
-// Create the initial button (BG Changer)
 const tool1 = document.createElement('button');
 tool1.innerText = 'PANIC';
 tool1.style.width = '80%';
@@ -42,7 +39,6 @@ tool1.style.cursor = 'pointer';
 tool1.style.borderRadius = '5px';
 menu.appendChild(tool1);
 
-// Token Spoofing Button
 const tokenSpoofButton = document.createElement('button');
 tokenSpoofButton.innerText = 'Spoof Tokens';
 tokenSpoofButton.style.width = '80%';
@@ -56,7 +52,6 @@ tokenSpoofButton.style.cursor = 'pointer';
 tokenSpoofButton.style.borderRadius = '5px';
 menu.appendChild(tokenSpoofButton);
 
-// Function to add new features dynamically
 const addFeature = document.createElement('button');
 addFeature.innerText = '+ Add Feature';
 addFeature.style.width = '80%';
@@ -70,7 +65,6 @@ addFeature.style.cursor = 'pointer';
 addFeature.style.borderRadius = '5px';
 menu.appendChild(addFeature);
 
-// Function to add new features dynamically
 addFeature.onclick = function() {
     const featureName = prompt('Enter the feature name:');
     const featureCode = prompt('Paste the feature code:');
@@ -94,7 +88,6 @@ addFeature.onclick = function() {
     }
 };
 
-// Rainbow animation for the header
 const style = document.createElement('style');
 style.innerHTML = `
     @keyframes rainbow {
@@ -105,7 +98,6 @@ style.innerHTML = `
 `;
 document.head.appendChild(style);
 
-// Function to spoof all pixels
 function spoofAllPixels() {
     const blookItems = document.querySelectorAll(".item");
     blookItems.forEach(item => {
@@ -115,7 +107,6 @@ function spoofAllPixels() {
         const owned = item.getAttribute("data-owned") || "0";
         const badge = item.querySelector(".badge");
         
-        // Update the details section
         document.getElementById("blook-name").textContent = name;
         document.getElementById("blook-image").src = imageSrc;
         document.getElementById("blook-image").style.display = "block";
@@ -124,7 +115,6 @@ function spoofAllPixels() {
         document.getElementById("set-pfp").style.display = "block";
         document.getElementById("sell-blook").style.display = "block";
         
-        // Update badge color based on rarity
         if (badge) {
             if (rarity === "uncommon") badge.style.backgroundColor = "green";
             if (rarity === "rare") badge.style.backgroundColor = "blue";
@@ -136,7 +126,6 @@ function spoofAllPixels() {
     });
 }
 
-// Handle button clicks
 tool1.onclick = function() {
     spoofAllPixels();
 };
@@ -152,7 +141,6 @@ tokenSpoofButton.onclick = function() {
     }
 };
 
-// Make the menu draggable
 function makeDraggable(element) {
     let offsetX, offsetY;
 
