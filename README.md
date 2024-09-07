@@ -6,7 +6,7 @@ This menu **IS NOT** for hacking. It is to enhance the experience of Pixelit.
 
 ## Overview
 
-Pixelit Tools is a JavaScript-based menu designed to enhance and modify the Pixelit game experience. This toolset provides various functionalities, including pixel data spoofing and token management, all within a customizable, dark-themed interface.
+Pixelit Tools is a JavaScript-based menu designed to enhance and modify the Pixelit game experience. This toolset provides various functionalities, including pixel data spoofing and token management, all within a customizable, dark-themed interface. If you want to import your own enhancement go ahead, if you want to look through our library you can!
 
 ## Features
 
