@@ -26,40 +26,33 @@ menuHeader.style.webkitTextFillColor = 'transparent';
 menuHeader.style.position = 'relative';
 menu.appendChild(menuHeader);
 
-const changeBgButton = document.createElement('button');
-changeBgButton.innerText = 'Change Background Color';
-changeBgButton.style.width = '80%';
-changeBgButton.style.margin = '20px 10%';
-changeBgButton.style.padding = '10px';
-changeBgButton.style.backgroundColor = '#666';
-changeBgButton.style.border = 'none';
-changeBgButton.style.color = 'white';
-changeBgButton.style.fontSize = '16px';
-changeBgButton.style.cursor = 'pointer';
-changeBgButton.style.borderRadius = '5px';
-menu.appendChild(changeBgButton);
+// Function to create buttons
+function createButton(text, onClick) {
+    const button = document.createElement('button');
+    button.innerText = text;
+    button.style.width = '80%';
+    button.style.margin = '10px 10%';
+    button.style.padding = '10px';
+    button.style.backgroundColor = '#666';
+    button.style.border = 'none';
+    button.style.color = 'white';
+    button.style.fontSize = '16px';
+    button.style.cursor = 'pointer';
+    button.style.borderRadius = '5px';
+    button.onclick = onClick;
+    menu.appendChild(button);
+}
 
-changeBgButton.onclick = function() {
+// Background color change
+createButton('Change Background Color', () => {
     const color = prompt('Enter a color (name or hex code):', '#ffffff');
     if (color) {
         document.body.style.backgroundColor = color;
     }
-};
+});
 
-const ownerSpoofButton = document.createElement('button');
-ownerSpoofButton.innerText = 'Spoof Roles to Owner';
-ownerSpoofButton.style.width = '80%';
-ownerSpoofButton.style.margin = '10px 10%';
-ownerSpoofButton.style.padding = '10px';
-ownerSpoofButton.style.backgroundColor = '#666';
-ownerSpoofButton.style.border = 'none';
-ownerSpoofButton.style.color = 'white';
-ownerSpoofButton.style.fontSize = '16px';
-ownerSpoofButton.style.cursor = 'pointer';
-ownerSpoofButton.style.borderRadius = '5px';
-menu.appendChild(ownerSpoofButton);
-
-ownerSpoofButton.onclick = function() {
+// Spoof roles to owner
+createButton('Spoof Roles to Owner', () => {
     const roleElements = document.querySelectorAll('[role], .role, span.role');
     roleElements.forEach(element => {
         const text = element.innerText;
@@ -73,22 +66,10 @@ ownerSpoofButton.onclick = function() {
             element.style.webkitTextFillColor = 'transparent';
         }
     });
-};
+});
 
-const tokenSpoofButton = document.createElement('button');
-tokenSpoofButton.innerText = 'Spoof Tokens';
-tokenSpoofButton.style.width = '80%';
-tokenSpoofButton.style.margin = '10px 10%';
-tokenSpoofButton.style.padding = '10px';
-tokenSpoofButton.style.backgroundColor = '#666';
-tokenSpoofButton.style.border = 'none';
-tokenSpoofButton.style.color = 'white';
-tokenSpoofButton.style.fontSize = '16px';
-tokenSpoofButton.style.cursor = 'pointer';
-tokenSpoofButton.style.borderRadius = '5px';
-menu.appendChild(tokenSpoofButton);
-
-tokenSpoofButton.onclick = function() {
+// Spoof tokens
+createButton('Spoof Tokens', () => {
     const tokensElement = document.getElementById('tokens');
     if (tokensElement) {
         const tokenAmount = prompt('Enter the amount of tokens you want:');
@@ -97,22 +78,10 @@ tokenSpoofButton.onclick = function() {
     } else {
         alert('Token element not found!');
     }
-};
+});
 
-const freePackSpoofButton = document.createElement('button');
-freePackSpoofButton.innerText = 'Spoof Pack Prices to Free';
-freePackSpoofButton.style.width = '80%';
-freePackSpoofButton.style.margin = '10px 10%';
-freePackSpoofButton.style.padding = '10px';
-freePackSpoofButton.style.backgroundColor = '#666';
-freePackSpoofButton.style.border = 'none';
-freePackSpoofButton.style.color = 'white';
-freePackSpoofButton.style.fontSize = '16px';
-freePackSpoofButton.style.cursor = 'pointer';
-freePackSpoofButton.style.borderRadius = '5px';
-menu.appendChild(freePackSpoofButton);
-
-freePackSpoofButton.onclick = function() {
+// Spoof pack prices
+createButton('Spoof Pack Prices to Free', () => {
     const costElements = document.querySelectorAll('.pack-cost, span, div');
     costElements.forEach(element => {
         if (element.innerText.includes('Cost:')) {
@@ -120,8 +89,9 @@ freePackSpoofButton.onclick = function() {
         }
     });
     alert('All packs are now spoofed to "Free"!');
-};
+});
 
+// Add feature
 const addFeature = document.createElement('button');
 addFeature.innerText = '+ Add Feature';
 addFeature.style.width = '80%';
@@ -138,25 +108,26 @@ menu.appendChild(addFeature);
 addFeature.onclick = function() {
     const featureName = prompt('Enter the feature name:');
     const featureCode = prompt('Paste the feature code:');
-    
+
     if (featureName && featureCode) {
-        const newFeatureButton = document.createElement('button');
-        newFeatureButton.innerText = featureName;
-        newFeatureButton.style.width = '80%';
-        newFeatureButton.style.margin = '10px 10%';
-        newFeatureButton.style.padding = '10px';
-        newFeatureButton.style.backgroundColor = '#555';
-        newFeatureButton.style.border = 'none';
-        newFeatureButton.style.color = 'white';
-        newFeatureButton.style.fontSize = '16px';
-        newFeatureButton.style.cursor = 'pointer';
-        newFeatureButton.style.borderRadius = '5px';
-        newFeatureButton.onclick = function() {
+        // Save feature to localStorage
+        const features = JSON.parse(localStorage.getItem('features')) || {};
+        features[featureName] = featureCode;
+        localStorage.setItem('features', JSON.stringify(features));
+
+        const newFeatureButton = createButton(featureName, () => {
             eval(featureCode);
-        };
-        menu.appendChild(newFeatureButton);
+        });
     }
 };
+
+// Load saved features from localStorage
+const savedFeatures = JSON.parse(localStorage.getItem('features')) || {};
+for (const [name, code] of Object.entries(savedFeatures)) {
+    createButton(name, () => {
+        eval(code);
+    });
+}
 
 const settingsSubheader = document.createElement('div');
 settingsSubheader.innerText = 'Menu Settings';
@@ -172,20 +143,8 @@ settingsSubheader.style.webkitBackgroundClip = 'text';
 settingsSubheader.style.webkitTextFillColor = 'transparent';
 menu.appendChild(settingsSubheader);
 
-const menuSettingsButton = document.createElement('button');
-menuSettingsButton.innerText = 'Customize Menu';
-menuSettingsButton.style.width = '80%';
-menuSettingsButton.style.margin = '10px 10%';
-menuSettingsButton.style.padding = '10px';
-menuSettingsButton.style.backgroundColor = '#555';
-menuSettingsButton.style.border = 'none';
-menuSettingsButton.style.color = 'white';
-menuSettingsButton.style.fontSize = '16px';
-menuSettingsButton.style.cursor = 'pointer';
-menuSettingsButton.style.borderRadius = '5px';
-menu.appendChild(menuSettingsButton);
-
-menuSettingsButton.onclick = function() {
+// Customize Menu
+createButton('Customize Menu', () => {
     const menuColor = prompt('Enter a background color for the menu:');
     const menuSize = prompt('Enter the width of the menu in pixels (e.g., 300px):', '300px');
     const rainbowMode = confirm('Do you want rainbow mode for the menu header?');
@@ -208,8 +167,9 @@ menuSettingsButton.onclick = function() {
         menuHeader.style.color = 'white';
         menuHeader.style.animation = 'none';
     }
-};
+});
 
+// Rainbow animation styles
 const rainbowStyle = document.createElement('style');
 rainbowStyle.innerHTML = `
 @keyframes rainbow {
@@ -230,6 +190,7 @@ rainbowStyle.innerHTML = `
 `;
 document.head.appendChild(rainbowStyle);
 
+// Drag functionality
 const dragElement = (el) => {
     let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
     if (document.getElementById(el.id + 'header')) {
